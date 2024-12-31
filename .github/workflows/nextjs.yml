@@ -75,6 +75,8 @@ jobs:
         run: |
           npm install --legacy-peer-deps
           npm install next@14.2.16 react@18.3.1 react-dom@18.3.1 --legacy-peer-deps
+          npm install tailwindcss postcss autoprefixer @radix-ui/react-icons class-variance-authority clsx tailwind-merge lucide-react @radix-ui/react-slot @radix-ui/react-select @radix-ui/react-calendar date-fns --legacy-peer-deps
+          npx shadcn-ui@latest init --yes
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
