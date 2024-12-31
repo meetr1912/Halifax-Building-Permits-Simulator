@@ -1,26 +1,24 @@
-# Clean up any existing files
-Remove-Item -Force -Recurse -ErrorAction SilentlyContinue .next, out, node_modules, package-lock.json, .git
-Remove-Item -Force -ErrorAction SilentlyContinue package.json, components.json, tailwind.config.ts
-Remove-Item -Force -ErrorAction SilentlyContinue app/globals.css, lib/utils.ts
+# Clean existing files and folders
+Remove-Item -Force -Recurse -ErrorAction SilentlyContinue .next, out, node_modules, package-lock.json
+Remove-Item -Force -ErrorAction SilentlyContinue package.json
 
-# Create Next.js project
-Write-Host "Creating Next.js project..."
-$env:NEXT_TELEMETRY_DISABLED = "1"
-npx create-next-app@latest . --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --no-git --yes
-
-Write-Host "Installing additional dependencies..."
+# Install core dependencies
+Write-Host "Installing core dependencies..."
+npm init -y
+npm install next@14.2.16 react@18.3.1 react-dom@18.3.1
 npm install @radix-ui/react-icons @radix-ui/react-slot @radix-ui/react-select class-variance-authority clsx date-fns lucide-react react-day-picker tailwind-merge tailwindcss-animate
+npm install -D typescript @types/node @types/react @types/react-dom autoprefixer postcss tailwindcss eslint eslint-config-next
 
-Write-Host "Installing and initializing shadcn-ui..."
+# Install and setup shadcn/ui
+Write-Host "Setting up shadcn/ui..."
 npm install -D @shadcn/ui
-npx @shadcn/ui@latest init -y
+npx shadcn-ui@latest init
 
 Write-Host "Adding shadcn/ui components..."
-$components = @("button", "card", "calendar", "select")
-foreach ($component in $components) {
-    Write-Host "Adding component: $component"
-    echo "y" | npx @shadcn/ui@latest add $component
-}
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add card
+npx shadcn-ui@latest add calendar
+npx shadcn-ui@latest add select
 
 Write-Host "Building project..."
 npm run build
