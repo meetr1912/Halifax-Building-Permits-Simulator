@@ -114,8 +114,9 @@ jobs:
           EOL
           npm install
           mkdir -p components/ui
-          npx --yes shadcn-ui@latest init
-          npx --yes shadcn-ui@latest add button card calendar select
+          npm install -D @shadcn/ui
+          npx @shadcn/ui@latest init --yes
+          npx @shadcn/ui@latest add button card calendar select --yes
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
