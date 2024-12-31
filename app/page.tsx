@@ -1,77 +1,36 @@
-"use client";
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { useState } from "react";
-import { Building2, HomeIcon, Wrench } from "lucide-react";
-import ProjectTypeCard from "@/components/ProjectTypeCard";
-import PermitDetails from "@/components/PermitDetails";
-
-export default function HomePage() {
-  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
-
-  const projectTypes = [
-    {
-      title: "New Construction",
-      icon: <Building2 size={48} />,
-      description: "Start a new building project from the ground up",
-      options: ["Single-unit dwelling", "Triplex", "Townhouse"],
-    },
-    {
-      title: "Renovation",
-      icon: <Wrench size={48} />,
-      description: "Modify or upgrade existing structures",
-      options: [
-        "Structural changes",
-        "Plumbing/Electrical changes",
-        "Adding a secondary suite",
-      ],
-    },
-    {
-      title: "Home Improvement",
-      icon: <HomeIcon size={48} />,
-      description: "Enhance your property with additions",
-      options: [
-        "Deck construction",
-        "Fence installation",
-        "Swimming pool installation",
-        "Accessory structure",
-      ],
-    },
-  ];
-
-  const handleProjectSelect = (project: string) => {
-    setSelectedProjects((prev) =>
-      prev.includes(project)
-        ? prev.filter((p) => p !== project)
-        : [...prev, project]
-    );
-  };
-
+export default function Home() {
   return (
-    <main className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Halifax Permit Finder</h1>
-          <p className="text-xl text-gray-600">
-            Simplify your permit application process for construction and home
-            improvement projects
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Welcome to Halifax Permit Finder</CardTitle>
+          <CardDescription>Find the permits you need for your projects in Halifax</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-4">
+            Use our permit finder to determine which permits you need for your home improvement, construction, or development projects. Simply follow the decision tree, answer a few questions, and we'll provide you with a list of required permits and next steps.
           </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {projectTypes.map((type) => (
-            <ProjectTypeCard
-              key={type.title}
-              {...type}
-              onSelect={handleProjectSelect}
-              selectedProjects={selectedProjects}
-            />
-          ))}
-        </div>
-
-        {selectedProjects.length > 0 && (
-          <PermitDetails selectedProjects={selectedProjects} />
-        )}
-      </div>
-    </main>
-  );
+          <Link href="/permit-finder">
+            <Button>Start Permit Finder</Button>
+          </Link>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Returning Users</CardTitle>
+          <CardDescription>Access your previous applications and inspection schedules</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Link href="/login">
+            <Button variant="outline">Log In</Button>
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
+
