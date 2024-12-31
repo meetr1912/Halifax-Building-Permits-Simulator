@@ -1,32 +1,28 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Halifax Permit Finder',
-  description: 'Find and apply for permits in Halifax',
-}
+  description: 'Find and apply for building permits in Halifax',
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-primary text-primary-foreground p-4">
-          <h1 className="text-2xl font-bold">Halifax Permit Finder</h1>
-        </header>
-        <main className="container mx-auto p-4">
-          {children}
+        <main className="min-h-screen p-8">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
-        <footer className="bg-gray-100 p-4 text-center">
-          <p>&copy; 2023 Halifax Permit Finder. All rights reserved.</p>
-        </footer>
       </body>
     </html>
-  )
+  );
 }
-
