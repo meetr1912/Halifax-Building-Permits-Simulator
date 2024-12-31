@@ -24,7 +24,7 @@ describe('HomePage', () => {
   })
 
   it('allows selecting and deselecting projects', async () => {
-    const deckButton = screen.getByText('Deck construction')
+    const deckButton = screen.getByRole('button', { name: 'Deck construction' })
     
     // Select project
     fireEvent.click(deckButton)
@@ -40,15 +40,23 @@ describe('HomePage', () => {
   })
 
   it('shows correct permit information when project is selected', async () => {
-    const singleUnitButton = screen.getByText('Single-unit dwelling')
+    const singleUnitButton = screen.getByRole('button', { name: 'Single-unit dwelling' })
     
     fireEvent.click(singleUnitButton)
     
     await waitFor(() => {
       expect(screen.getByText('Permit Details')).toBeInTheDocument()
-      expect(screen.getByText(/Site plan/)).toBeInTheDocument()
-      expect(screen.getByText(/Architectural drawings/)).toBeInTheDocument()
-      expect(screen.getByText(/Based on construction value \(minimum \$750\)/)).toBeInTheDocument()
+      expect(screen.getByText('Single-unit dwelling')).toBeInTheDocument()
+    })
+
+    // Click the accordion trigger
+    const accordionTrigger = screen.getByText('Single-unit dwelling', { selector: 'button' })
+    fireEvent.click(accordionTrigger)
+
+    await waitFor(() => {
+      expect(screen.getByText('Site plan')).toBeInTheDocument()
+      expect(screen.getByText('Architectural drawings')).toBeInTheDocument()
+      expect(screen.getByText('Based on construction value (minimum $750)')).toBeInTheDocument()
     })
   })
 }) 
