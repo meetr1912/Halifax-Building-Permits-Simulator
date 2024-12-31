@@ -17,10 +17,6 @@ const nextConfig = {
   },
   // Ensure trailing slashes are handled correctly
   trailingSlash: true,
-  // Disable server-side features for static export
-  experimental: {
-    appDir: true,
-  },
 }
 
 module.exports = nextConfig;

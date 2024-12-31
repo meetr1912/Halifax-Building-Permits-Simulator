@@ -15,6 +15,22 @@ const customJestConfig = {
       tsconfig: 'tsconfig.jest.json',
     }],
   },
+  collectCoverageFrom: [
+    'app/**/*.{js,jsx,ts,tsx}',
+    'components/**/*.{js,jsx,ts,tsx}',
+    '!**/*.d.ts',
+    '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/coverage/**'
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 50,
+      functions: 50,
+      lines: 50,
+      statements: 50
+    }
+  }
 }
 
 module.exports = createJestConfig(customJestConfig) 

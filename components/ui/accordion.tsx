@@ -17,11 +17,17 @@ interface AccordionItemProps {
 interface AccordionTriggerProps {
   className?: string;
   children: React.ReactNode;
+  value?: string;
 }
 
 interface AccordionContentProps {
   className?: string;
   children: React.ReactNode;
+  value?: string;
+}
+
+interface AccordionChildProps {
+  value?: string;
 }
 
 const AccordionContext = React.createContext<{
@@ -63,7 +69,7 @@ export function AccordionItem({ value, children }: AccordionItemProps) {
   return (
     <div className="border rounded-lg">
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement<AccordionChildProps>(child)) {
           return React.cloneElement(child, { value });
         }
         return child;
@@ -76,7 +82,7 @@ export function AccordionTrigger({
   className = "",
   children,
   value,
-}: AccordionTriggerProps & { value?: string }) {
+}: AccordionTriggerProps) {
   const { expanded, toggle } = React.useContext(AccordionContext);
 
   return (
@@ -100,7 +106,7 @@ export function AccordionContent({
   className = "",
   children,
   value,
-}: AccordionContentProps & { value?: string }) {
+}: AccordionContentProps) {
   const { expanded } = React.useContext(AccordionContext);
   const isExpanded = expanded.includes(value || "");
 
