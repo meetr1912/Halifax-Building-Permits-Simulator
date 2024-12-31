@@ -40,23 +40,34 @@ describe('HomePage', () => {
   })
 
   it('shows correct permit information when project is selected', async () => {
-    const singleUnitButton = screen.getByRole('button', { name: 'Single-unit dwelling' })
+    // Find and click the project selection button
+    const buttons = screen.getAllByRole('button')
+    const singleUnitButton = buttons.find(button => button.textContent === 'Single-unit dwelling')
+    expect(singleUnitButton).toBeTruthy()
     
-    fireEvent.click(singleUnitButton)
-    
-    await waitFor(() => {
-      expect(screen.getByText('Permit Details')).toBeInTheDocument()
-      expect(screen.getByText('Single-unit dwelling')).toBeInTheDocument()
-    })
+    if (singleUnitButton) {
+      fireEvent.click(singleUnitButton)
+      
+      await waitFor(() => {
+        expect(screen.getByText('Permit Details')).toBeInTheDocument()
+      })
 
-    // Click the accordion trigger
-    const accordionTrigger = screen.getByText('Single-unit dwelling', { selector: 'button' })
-    fireEvent.click(accordionTrigger)
+      // Find and click the accordion trigger
+      const accordionButtons = screen.getAllByRole('button')
+      const accordionTrigger = accordionButtons.find(
+        button => button.textContent?.includes('Single-unit dwelling') && button.textContent?.includes('▼')
+      )
+      expect(accordionTrigger).toBeTruthy()
 
-    await waitFor(() => {
-      expect(screen.getByText('Site plan')).toBeInTheDocument()
-      expect(screen.getByText('Architectural drawings')).toBeInTheDocument()
-      expect(screen.getByText('Based on construction value (minimum $750)')).toBeInTheDocument()
-    })
+      if (accordionTrigger) {
+        fireEvent.click(accordionTrigger)
+
+        await waitFor(() => {
+          expect(screen.getByText('Site plan')).toBeInTheDocument()
+          expect(screen.getByText('Architectural drawings')).toBeInTheDocument()
+          expect(screen.getByText('Based on construction value (minimum $750)')).toBeInTheDocument()
+        })
+      }
+    }
   })
 }) 
