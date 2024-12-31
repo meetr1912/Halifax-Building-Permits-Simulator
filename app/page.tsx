@@ -1,23 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, Home, Wrench } from "lucide-react";
+import { Building2, HomeIcon, Wrench } from "lucide-react";
 import ProjectTypeCard from "@/components/ProjectTypeCard";
 import PermitDetails from "@/components/PermitDetails";
 
-export default function Home() {
+export default function HomePage() {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
 
   const projectTypes = [
     {
       title: "New Construction",
-      icon: <Building2 className="w-12 h-12" />,
+      icon: <Building2 size={48} />,
       description: "Start a new building project from the ground up",
       options: ["Single-unit dwelling", "Triplex", "Townhouse"],
     },
     {
       title: "Renovation",
-      icon: <Wrench className="w-12 h-12" />,
+      icon: <Wrench size={48} />,
       description: "Modify or upgrade existing structures",
       options: [
         "Structural changes",
@@ -27,7 +27,7 @@ export default function Home() {
     },
     {
       title: "Home Improvement",
-      icon: <Home className="w-12 h-12" />,
+      icon: <HomeIcon size={48} />,
       description: "Enhance your property with additions",
       options: [
         "Deck construction",
