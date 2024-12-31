@@ -72,9 +72,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.runner }} ${{ steps.detect-package-manager.outputs.command }}
+        run: |
+          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+            yarn install
+          else
+            npm ci
+          fi
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: |
+          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+            yarn build
+          else
+            npm run build
+          fi
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.detect-package-manager.outputs.base-path }}
       - name: Upload artifact
