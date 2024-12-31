@@ -76,7 +76,10 @@ jobs:
           npm install --legacy-peer-deps
           npm install next@14.2.16 react@18.3.1 react-dom@18.3.1 --legacy-peer-deps
           npm install tailwindcss postcss autoprefixer @radix-ui/react-icons class-variance-authority clsx tailwind-merge lucide-react @radix-ui/react-slot @radix-ui/react-select react-day-picker date-fns --legacy-peer-deps
-          npx shadcn-ui@latest init --yes
+          npm install -D @types/node typescript @types/react @types/react-dom eslint
+          npx create-shadcn-ui@latest init --yes
+          mkdir -p components/ui
+          npx create-shadcn-ui@latest add button card calendar select --yes
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
