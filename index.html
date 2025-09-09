@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halifax Housing Price Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Halifax Housing Price Simulation</h1>
+        <p>Forecast to 2035 Based on Economic Scenarios</p>
+
+        <div class="controls">
+            <h2>Simulation Controls</h2>
+            <div class="control-group">
+                <label for="scenario">Select Forecast Scenario:</label>
+                <select id="scenario">
+                    <option value="cmhc-bau">CMHC (Business-as-Usual)</option>
+                    <option value="cmhc-is">CMHC (Increased Supply)</option>
+                    <option value="imf">IMF (Economic Factors)</option>
+                </select>
+                <p id="scenario-desc">High growth based on current supply and demand trends, leading to decreased affordability.</p>
+            </div>
+
+            <div id="imf-controls" class="hidden">
+                <div class="control-group">
+                    <label for="pop-growth">Annual Population Growth: <span id="pop-growth-value">2.0</span>%</label>
+                    <input type="range" id="pop-growth" min="0" max="5" step="0.1" value="2.0">
+                </div>
+                <div class="control-group">
+                    <label for="interest-rate">Average Annual Interest Rate: <span id="interest-rate-value">3.50</span>%</label>
+                    <input type="range" id="interest-rate" min="1" max="10" step="0.25" value="3.50">
+                </div>
+                <div class="control-group">
+                    <label for="new-housing">New Housing Units Per Year: <span id="new-housing-value">5000</span></label>
+                    <input type="range" id="new-housing" min="1000" max="10000" step="100" value="5000">
+                </div>
+            </div>
+        </div>
+
+        <div class="results">
+            <h2>Results</h2>
+            <div class="result-item">
+                <span>Projected 2035 Price</span>
+                <span id="projected-price">$415,520.4</span>
+            </div>
+            <div class="result-item">
+                <span>Total Growth</span>
+                <span id="total-growth">-33.5%</span>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <p><strong>Disclaimer:</strong> This is a simplified model for illustrative purposes and not financial advice. Projections are based on public data from CMHC, IMF, and other sources as of mid-2025.</p>
+            <p><strong>Model Assumptions:</strong> Base Price (2025): $625,000. CMHC Scenarios: Growth rates are derived from CMHC reports on affordability and supply targets. "Business-as-Usual" implies prices grow significantly faster than incomes. "Increased Supply" assumes a balanced market. IMF Scenario: A formulaic model where price growth = 1.5% + (1.5 * Pop. Growth) - (2.0 * Interest Rate) - (0.0005 * (New Supply - 4700)).</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
